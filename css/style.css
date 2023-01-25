@@ -1,0 +1,33 @@
+html {
+    font-size: 10px;
+    background: url('../images/background.jpg') bottom center;
+    background-size: cover;
+  }
+    
+   body {
+    display: flex;
+    font-family: sans-serif;
+    padding: 30px;
+  } 
+  
+.main-container {
+    background-color: #FAEBD7;
+    height: 550px;
+    width: 550px;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+.row {
+    display: flex; 
+    flex-direction: row;
+}
+
+.square {
+    display: flex;
+    border: 1px solid black;
+    height: 10px;
+    width: 10px;
+}
+
