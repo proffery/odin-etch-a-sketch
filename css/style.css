@@ -12,11 +12,14 @@ html {
   
 .main-container {
     background-color: #FAEBD7;
-    height: 550px;
-    width: 550px;
+    height: 500px;
+    width: 500px;
     border-radius: 10px;
     display: flex;
-    flex-wrap: wrap;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
 
 .row {
@@ -27,7 +30,7 @@ html {
 .square {
     display: flex;
     border: 1px solid black;
-    height: 10px;
-    width: 10px;
+    /* height: 10.1px;
+    width: 10px; */
 }
 

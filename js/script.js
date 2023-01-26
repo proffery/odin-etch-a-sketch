@@ -1,6 +1,6 @@
-
+const mainContainer = document.querySelector(".main-container");
 function drawGrid(gridNumber) {
-    const grid = document.querySelector(".main-container");
+    
     let gridArr = [];
     // const squar = document.createElement('div');
 
@@ -12,15 +12,27 @@ function drawGrid(gridNumber) {
         let row = document.createElement('div');
         row.id = (`row${i}`);
         row.classList.add('row');
-        grid.appendChild(row);
+        mainContainer.appendChild(row);
         let rowI = document.getElementById(`row${i}`);
         for (let j = 0; j < gridNumber; j++) {
             gridArr[i][j] = document.createElement('div');
             gridArr[i][j].classList.add('square');
             gridArr[i][j].id = (`square${i}-${j}`);
+            gridArr[i][j].setAttribute(`style`, `height: ${calcSquare(gridNumber)}px; width: ${calcSquare(gridNumber)}px;`);
             rowI.appendChild(gridArr[i][j]);
         } 
 
     }
 }
- console.log(drawGrid(16));
+
+function calcSquare(num){
+    const style = getComputedStyle(mainContainer);
+    const height = style.height;
+    return parseInt(height) / num;
+}
+
+const style = getComputedStyle(mainContainer);
+const height = style.height;
+// console.log(height);
+//  console.log(calcSquare(10));
+ console.log(drawGrid(18));
