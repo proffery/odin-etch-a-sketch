@@ -1,9 +1,9 @@
-const mainContainer = document.querySelector(".main-container");
-function drawGrid(gridNumber) {
-    
-    let gridArr = [];
-    // const squar = document.createElement('div');
+const mainContainer = document.querySelector('.main-container');
+const allSquares = document.querySelectorAll('.square');
 
+
+function drawGrid(gridNumber) {
+    let gridArr = [];
     for (let i = 0; i < gridNumber; i++) {
         gridArr[i] = new Array(gridNumber);
     }
@@ -25,14 +25,21 @@ function drawGrid(gridNumber) {
     }
 }
 
-function calcSquare(num){
+function calcSquare(num) {
     const style = getComputedStyle(mainContainer);
     const height = style.height;
-    return parseInt(height) / num;
+    return Math.round(parseInt(height) * 10 / num) / 10;
 }
 
-const style = getComputedStyle(mainContainer);
-const height = style.height;
+function changeBack(e) {
+    const ide = e.target.id;
+    e.stopPropagation();
+    const square = document.query(`div#${ide}`);
+    square.setAttribute('background: black;');
+    // e.target.style.background = 'blue';
+}
+
+allSquares.forEach(keys => keys.addEventListener('click', changeBack));
 // console.log(height);
-//  console.log(calcSquare(10));
- console.log(drawGrid(18));
+//  console.log(calcSquare(3));
+console.log(drawGrid(18));
