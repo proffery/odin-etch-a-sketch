@@ -1,5 +1,6 @@
 const mainContainer = document.querySelector('.main-container');
-const allSquares = document.querySelectorAll('.square');
+const cleanButton = document.querySelector('.clean');
+let allSquares;
 
 
 function drawGrid(gridNumber) {
@@ -21,8 +22,8 @@ function drawGrid(gridNumber) {
             gridArr[i][j].setAttribute(`style`, `height: ${calcSquare(gridNumber)}px; width: ${calcSquare(gridNumber)}px;`);
             rowI.appendChild(gridArr[i][j]);
         } 
-
     }
+    
 }
 
 function calcSquare(num) {
@@ -32,14 +33,28 @@ function calcSquare(num) {
 }
 
 function changeBack(e) {
-    const ide = e.target.id;
     e.stopPropagation();
-    const square = document.query(`div#${ide}`);
-    square.setAttribute('background: black;');
-    // e.target.style.background = 'blue';
+    e.target.style.backgroundColor = 'black';
 }
 
-allSquares.forEach(keys => keys.addEventListener('click', changeBack));
+function removeBack() {
+    allSquares.forEach(square => square.style.backgroundColor = '');
+}
+
+function stop() {
+    allSquares.forEach(square => square.removeEventListener('mouseenter', changeBack));
+}
+
+function start() {
+    allSquares.forEach(square => square.addEventListener('mouseenter', changeBack));;
+}
+
+console.log(drawGrid(100));
+allSquares = document.querySelectorAll('.square');
+allSquares.forEach(square => square.addEventListener('mousedown', start));
+allSquares.forEach(square => square.addEventListener('click', changeBack));
+allSquares.forEach(square => square.addEventListener('mouseup', stop));
+cleanButton.addEventListener('click', removeBack);
 // console.log(height);
-//  console.log(calcSquare(3));
-console.log(drawGrid(18));
+// console.log(calcSquare(3));
+
