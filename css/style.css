@@ -10,7 +10,7 @@ html {
   } 
   
 .main-container {
-    background-color: #FAEBD7;
+    background-color: rgb(250, 235, 215);
     height: 400px;
     width: 400px;
     display: flex;

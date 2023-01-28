@@ -29,15 +29,21 @@ function calcSquare(num) {
     return Math.round(parseInt(height) * 10 / num) / 10;
 }
 
-function drawBlack(e) {
+function changeSquareBackground(e, color) {
+    if (color == undefined) {
+        color = 'black';
+    }
 const radioButtons = document.querySelectorAll('input[name="option"]'); 
     e.stopPropagation();
         for (let i = 0; i < radioButtons.length; i++) {
             if (radioButtons[0].checked) {
-                e.target.style.backgroundColor = 'black';
+                e.target.style.backgroundColor = `${color}`;
             }
             if (radioButtons[1].checked) {
                 e.target.style.backgroundColor = '';
+            }
+            if (radioButtons[2].checked) {
+                e.target.style.backgroundColor = `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`;
             }
         }
 }
@@ -47,11 +53,11 @@ function cleanAll() {
 }
 
 function stopDraw() {
-    allSquares.forEach(square => square.removeEventListener('mousemove', drawBlack));
+    allSquares.forEach(square => square.removeEventListener('mouseover', changeSquareBackground));
 }
 
 function startDraw() {
-    allSquares.forEach(square => square.addEventListener('mousemove', drawBlack));;
+    allSquares.forEach(square => square.addEventListener('mouseover', changeSquareBackground));;
 }
 
 
@@ -69,7 +75,7 @@ group.innerHTML = options.map((option) => `<div>
    
 allSquares.forEach(square => square.addEventListener('mousedown', startDraw));
 allSquares.forEach(square => square.addEventListener('mouseup', stopDraw)); 
-allSquares.forEach(square => square.addEventListener('click', drawBlack));      
+allSquares.forEach(square => square.addEventListener('click', changeSquareBackground));      
 cleanButton.addEventListener('click', cleanAll);
 
 
