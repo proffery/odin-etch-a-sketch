@@ -5,20 +5,49 @@ html {
   }
     
    body {
-    font-family: sans-serif;
-    padding: 30px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
   } 
   
 .main-container {
+    display: flex;
+    flex-direction: column;
     background-color: rgb(250, 235, 215);
     height: 400px;
     width: 400px;
-    display: flex;
     margin: auto;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    box-shadow: rgb(0, 0, 0) 0 0 5px;
   }
+  
+.select-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.color-element {
+  display: flex;
+  flex-direction: row;
+  transition: all .3s ease;
+  height: 15px;
+  width: 15px;
+  margin: 2px;
+  box-shadow: black 0 0 2px;
+}
+
+.color-element-pick {
+  transform: scale(1.5);
+  border-color: #e5fab3;
+  box-shadow: 0 0 10px #df1616;
+}
+
+.draw-option {
+  display: flex;
+  align-items: center;
+  margin: 3px;
+}
 
 .row {
     display: flex; 
@@ -35,4 +64,16 @@ h1 {
 
 button {
   margin-top: 10px;
+  border-radius: 2px;
+  color: rgb(129, 128, 128);
+  border: 0;
+  padding: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-shadow: black 0 0 5px;
+}
+
+input {
+  display: flex;
+  margin: 1px;
 }

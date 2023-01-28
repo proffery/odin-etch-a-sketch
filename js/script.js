@@ -1,6 +1,7 @@
 const mainContainer = document.querySelector('.main-container');
 const cleanButton = document.querySelector('.clean');
 const options = ['Draw', 'Earse', 'Rainbow'];
+let color;
 function drawGrid(gridNumber) {
     let gridArr = [];
     for (let i = 0; i < gridNumber; i++) {
@@ -29,25 +30,38 @@ function calcSquare(num) {
     return Math.round(parseInt(height) * 10 / num) / 10;
 }
 
-function changeSquareBackground(e, color) {
+function changeSquareBackground(e) {
+    const radioButtons = document.querySelectorAll('input[name="option"]'); 
     if (color == undefined) {
         color = 'black';
     }
-const radioButtons = document.querySelectorAll('input[name="option"]'); 
-    e.stopPropagation();
-        for (let i = 0; i < radioButtons.length; i++) {
-            if (radioButtons[0].checked) {
-                e.target.style.backgroundColor = `${color}`;
-            }
-            if (radioButtons[1].checked) {
-                e.target.style.backgroundColor = '';
-            }
-            if (radioButtons[2].checked) {
-                e.target.style.backgroundColor = `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`;
-            }
+
+    for (let i = 0; i < radioButtons.length; i++) {
+        if (radioButtons[0].checked) {
+            e.target.style.backgroundColor = `${color}`;
         }
+        if (radioButtons[1].checked) {
+            e.target.style.backgroundColor = '';
+        }
+        if (radioButtons[2].checked) {
+            e.target.style.backgroundColor = randomColor();
+        }
+    }   
 }
 
+function randomColor() {
+        return `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`;
+    }
+
+function drawOptions() {
+    const group = document.querySelector('.draw-options');
+    group.innerHTML = options.map((option) => `<div class="draw-option">
+    <input type="radio" name="option" value="${option}" id="${option}">
+    <label for="${option}">${option}</label>
+    </div>`).join(' ');
+    const inputPick = document.querySelector ('input');
+    inputPick.setAttribute('checked', 'checked'); 
+}
 function cleanAll() {
     allSquares.forEach(square => square.style.backgroundColor = '');
 }
@@ -60,45 +74,40 @@ function startDraw() {
     allSquares.forEach(square => square.addEventListener('mouseover', changeSquareBackground));;
 }
 
+function drawColors(num) {
+    const drawDiv = document.querySelector('div:has(> input[value="Draw"]');
+    for (let i = 0; i < num; i++ ) {
+        let colorElement = document.createElement('div');
+        colorElement.id = (`color${i}`);
+        colorElement.classList.add('color-element');
+        colorElement.style.backgroundColor = `${randomColor()}`;
+        drawDiv.appendChild(colorElement);
+    }
+}
 
-console.log(drawGrid(64));
- 
-const group = document.querySelector(".draw-options");
+function pickColor(e) {
+    const colorDiv = document.querySelector(`div#${e.target.id}`);
+    colorDiv.classList.add('color-element-pick');
+    color = e.target.style.backgroundColor;
+    cleanButton.style.backgroundColor = color;
+}
 
-let allSquares = document.querySelectorAll('.square');  
+function removeAllTransition(e) {
 
-group.innerHTML = options.map((option) => `<div>
-    <input type="radio" name="option" value="${option}" id="${option}">
-    <label for="${option}">${option}</label>
-</div>`).join(' ');
+    if (e.propertyName !== 'transform') return;
+    this.classList.remove('color-element-pick');
+} 
 
-   
+drawGrid(64);
+drawOptions();
+drawColors(18);
+// console.log(pickColor);
+
+let allSquares = document.querySelectorAll('.square');
+let colorElements = document.querySelectorAll('.color-element') 
 allSquares.forEach(square => square.addEventListener('mousedown', startDraw));
 allSquares.forEach(square => square.addEventListener('mouseup', stopDraw)); 
-allSquares.forEach(square => square.addEventListener('click', changeSquareBackground));      
+allSquares.forEach(square => square.addEventListener('click', changeSquareBackground));
+colorElements.forEach(color => color.addEventListener('click', pickColor));
+colorElements.forEach(color => color.addEventListener('transitionend', removeAllTransition));
 cleanButton.addEventListener('click', cleanAll);
-
-
-// const radioButtons = document.querySelectorAll('input[class="option"]');
-// for(const radioButton of radioButtons){
-//     radioButton.addEventListener('change', selected);
-// }
-
-
-// function selected() {
-//     let allSquares = document.querySelectorAll('.square');
-//     for (let i = 0; i < radioButtons.length; i++) {
-//         if (radioButtons[i].checked) {
-//             switch (radioButtons[i].getAttribute('id')) {
-//                 case 'Draw':
-//                     allSquares.forEach(square => square.addEventListener('mousedown', startDraw));
-//                     allSquares.forEach(square => square.addEventListener('mouseup', stopDraw));
-//                     allSquares.forEach(square => square.addEventListener('click', drawBlack));
-//                     continue;
-//             }
-//         }
-//     }
-// }
-// console.log(height);
-// console.log(calcSquare(3));
-
