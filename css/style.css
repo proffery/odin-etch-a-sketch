@@ -11,8 +11,8 @@ html {
   
 .main-container {
     background-color: #FAEBD7;
-    height: 500px;
-    width: 500px;
+    height: 400px;
+    width: 400px;
     display: flex;
     margin: auto;
     align-items: center;
@@ -27,7 +27,6 @@ html {
 
 .square {
     display: flex;
-    /* border: 1px solid black; */
 }
 
 h1 {

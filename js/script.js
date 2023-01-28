@@ -1,8 +1,6 @@
 const mainContainer = document.querySelector('.main-container');
 const cleanButton = document.querySelector('.clean');
-let allSquares;
-
-
+const options = ['Draw', 'Earse', 'Rainbow'];
 function drawGrid(gridNumber) {
     let gridArr = [];
     for (let i = 0; i < gridNumber; i++) {
@@ -23,7 +21,6 @@ function drawGrid(gridNumber) {
             rowI.appendChild(gridArr[i][j]);
         } 
     }
-    
 }
 
 function calcSquare(num) {
@@ -32,29 +29,70 @@ function calcSquare(num) {
     return Math.round(parseInt(height) * 10 / num) / 10;
 }
 
-function changeBack(e) {
+function drawBlack(e) {
+const radioButtons = document.querySelectorAll('input[name="option"]'); 
     e.stopPropagation();
-    e.target.style.backgroundColor = 'black';
+        for (let i = 0; i < radioButtons.length; i++) {
+            if (radioButtons[0].checked) {
+                e.target.style.backgroundColor = 'black';
+            }
+            if (radioButtons[1].checked) {
+                e.target.style.backgroundColor = '';
+            }
+        }
 }
 
-function removeBack() {
+function cleanAll() {
     allSquares.forEach(square => square.style.backgroundColor = '');
 }
 
-function stop() {
-    allSquares.forEach(square => square.removeEventListener('mouseenter', changeBack));
+function stopDraw() {
+    allSquares.forEach(square => square.removeEventListener('mousemove', drawBlack));
 }
 
-function start() {
-    allSquares.forEach(square => square.addEventListener('mouseenter', changeBack));;
+function startDraw() {
+    allSquares.forEach(square => square.addEventListener('mousemove', drawBlack));;
 }
 
-console.log(drawGrid(100));
-allSquares = document.querySelectorAll('.square');
-allSquares.forEach(square => square.addEventListener('mousedown', start));
-allSquares.forEach(square => square.addEventListener('click', changeBack));
-allSquares.forEach(square => square.addEventListener('mouseup', stop));
-cleanButton.addEventListener('click', removeBack);
+
+console.log(drawGrid(64));
+ 
+const group = document.querySelector(".draw-options");
+
+let allSquares = document.querySelectorAll('.square');  
+
+group.innerHTML = options.map((option) => `<div>
+    <input type="radio" name="option" value="${option}" id="${option}">
+    <label for="${option}">${option}</label>
+</div>`).join(' ');
+
+   
+allSquares.forEach(square => square.addEventListener('mousedown', startDraw));
+allSquares.forEach(square => square.addEventListener('mouseup', stopDraw)); 
+allSquares.forEach(square => square.addEventListener('click', drawBlack));      
+cleanButton.addEventListener('click', cleanAll);
+
+
+// const radioButtons = document.querySelectorAll('input[class="option"]');
+// for(const radioButton of radioButtons){
+//     radioButton.addEventListener('change', selected);
+// }
+
+
+// function selected() {
+//     let allSquares = document.querySelectorAll('.square');
+//     for (let i = 0; i < radioButtons.length; i++) {
+//         if (radioButtons[i].checked) {
+//             switch (radioButtons[i].getAttribute('id')) {
+//                 case 'Draw':
+//                     allSquares.forEach(square => square.addEventListener('mousedown', startDraw));
+//                     allSquares.forEach(square => square.addEventListener('mouseup', stopDraw));
+//                     allSquares.forEach(square => square.addEventListener('click', drawBlack));
+//                     continue;
+//             }
+//         }
+//     }
+// }
 // console.log(height);
 // console.log(calcSquare(3));
 
