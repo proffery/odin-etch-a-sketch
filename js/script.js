@@ -63,6 +63,7 @@ function drawOptions() {
     inputPick.setAttribute('checked', 'checked'); 
 }
 function cleanAll() {
+    cleanButton.classList.add('color-element-pick');
     allSquares.forEach(square => square.style.backgroundColor = '');
 }
 
@@ -111,3 +112,4 @@ allSquares.forEach(square => square.addEventListener('click', changeSquareBackgr
 colorElements.forEach(color => color.addEventListener('click', pickColor));
 colorElements.forEach(color => color.addEventListener('transitionend', removeAllTransition));
 cleanButton.addEventListener('click', cleanAll);
+cleanButton.addEventListener('transitionend', removeAllTransition);

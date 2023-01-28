@@ -12,7 +12,7 @@ html {
 .main-container {
     display: flex;
     flex-direction: column;
-    background-color: rgb(250, 235, 215);
+    background-color: rgb(245, 244, 244);
     height: 400px;
     width: 400px;
     margin: auto;
@@ -39,8 +39,7 @@ html {
 
 .color-element-pick {
   transform: scale(1.5);
-  border-color: #e5fab3;
-  box-shadow: 0 0 10px #df1616;
+  box-shadow: 0 0 5px #6e6e6e;
 }
 
 .draw-option {
@@ -62,15 +61,17 @@ h1 {
   text-align: center;
 }
 
-button {
+.button {
+  height: 20px;
+  width: 70px;
   margin-top: 10px;
   border-radius: 2px;
   color: rgb(129, 128, 128);
   border: 0;
-  padding: 3px;
-  padding-left: 10px;
-  padding-right: 10px;
   box-shadow: black 0 0 5px;
+  text-align: center;
+  transition: all .3s ease;
+  background-color: black;
 }
 
 input {
