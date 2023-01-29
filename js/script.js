@@ -1,8 +1,8 @@
 const mainContainer = document.querySelector('.main-container');
 const cleanButton = document.querySelector('.clean');
 const options = ['Draw', 'Erase', 'Rainbow'];
-const COLORS_NUM = 19;
-let slider = document.getElementById("myRange");
+const COLORS_NUM = 21;
+const slider = document.getElementById("myRange");
 let color;
 let colorElements;
 let allSquares;
@@ -129,7 +129,6 @@ function cleanGrid() {
 }
 
 function sliderFunction(value) {
-    console.log(value);
     slider.innerHTML = value;
     sliderNumber = value;
 }
