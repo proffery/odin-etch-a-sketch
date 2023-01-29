@@ -1,8 +1,14 @@
 const mainContainer = document.querySelector('.main-container');
 const cleanButton = document.querySelector('.clean');
-const options = ['Draw', 'Earse', 'Rainbow'];
+const options = ['Draw', 'Erase', 'Rainbow'];
+const COLORS_NUM = 19;
+let slider = document.getElementById("myRange");
 let color;
+let colorElements;
+let allSquares;
+
 function drawGrid(gridNumber) {
+    gridNumber = parseInt(slider.value);
     let gridArr = [];
     for (let i = 0; i < gridNumber; i++) {
         gridArr[i] = new Array(gridNumber);
@@ -22,6 +28,19 @@ function drawGrid(gridNumber) {
             rowI.appendChild(gridArr[i][j]);
         } 
     }
+
+    drawOptions();
+    drawColors(COLORS_NUM);
+
+    colorElements = document.querySelectorAll('.color-element');
+    allSquares = document.querySelectorAll('.square');
+    
+    
+    allSquares.forEach(square => square.addEventListener('mousedown', startDraw));
+    allSquares.forEach(square => square.addEventListener('mouseup', stopDraw)); 
+    allSquares.forEach(square => square.addEventListener('click', changeSquareBackground));
+    colorElements.forEach(color => color.addEventListener('click', pickColor));
+    colorElements.forEach(color => color.addEventListener('transitionend', removeAllTransition));
 }
 
 function calcSquare(num) {
@@ -59,9 +78,10 @@ function drawOptions() {
     <input type="radio" name="option" value="${option}" id="${option}">
     <label for="${option}">${option}</label>
     </div>`).join(' ');
-    const inputPick = document.querySelector ('input');
-    inputPick.setAttribute('checked', 'checked'); 
+    const inputPick = document.querySelector ('input[id="Draw"]');
+    inputPick.setAttribute('checked', ''); 
 }
+
 function cleanAll() {
     cleanButton.classList.add('color-element-pick');
     allSquares.forEach(square => square.style.backgroundColor = '');
@@ -84,6 +104,8 @@ function drawColors(num) {
         colorElement.style.backgroundColor = `${randomColor()}`;
         drawDiv.appendChild(colorElement);
     }
+    const firstDiv = document.querySelector('div#color0');
+    firstDiv.style.backgroundColor = 'black';
 }
 
 function pickColor(e) {
@@ -94,22 +116,29 @@ function pickColor(e) {
 }
 
 function removeAllTransition(e) {
-
     if (e.propertyName !== 'transform') return;
     this.classList.remove('color-element-pick');
 } 
 
-drawGrid(64);
-drawOptions();
-drawColors(18);
-// console.log(pickColor);
+function cleanGrid() {
+    let child = mainContainer.lastElementChild;
+    while (child) {
+        mainContainer.removeChild(child);
+        child = mainContainer.lastElementChild;
+    }
+}
 
-let allSquares = document.querySelectorAll('.square');
-let colorElements = document.querySelectorAll('.color-element') 
-allSquares.forEach(square => square.addEventListener('mousedown', startDraw));
-allSquares.forEach(square => square.addEventListener('mouseup', stopDraw)); 
-allSquares.forEach(square => square.addEventListener('click', changeSquareBackground));
-colorElements.forEach(color => color.addEventListener('click', pickColor));
-colorElements.forEach(color => color.addEventListener('transitionend', removeAllTransition));
+function sliderFunction(value) {
+    console.log(value);
+    slider.innerHTML = value;
+    sliderNumber = value;
+}
+
+drawGrid();
+
+slider.addEventListener('mousedown', cleanGrid);
+slider.addEventListener('mousedown', sliderFunction);
+slider.addEventListener('mouseup', drawGrid);
+
 cleanButton.addEventListener('click', cleanAll);
 cleanButton.addEventListener('transitionend', removeAllTransition);

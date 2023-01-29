@@ -72,9 +72,32 @@ h1 {
   text-align: center;
   transition: all .3s ease;
   background-color: black;
+  opacity: 0.9;
 }
 
 input {
   display: flex;
   margin: 1px;
+}
+
+.slidecontainer {
+  display: flex;
+  align-items: center;
+  width: 394px;
+  padding: 3px;
+  padding-top: 1px;
+  padding-bottom: 0;
+  margin: auto;
+  margin-bottom: 5px;
+  box-shadow: black 0 0 5px;
+  background: rgb(245, 244, 244); 
+}
+
+.slider {
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 5px; /* Specified height */
+  background: rgb(245, 244, 244); 
+  outline: none; /* Remove outline */
+  opacity: 0.8; 
 }
